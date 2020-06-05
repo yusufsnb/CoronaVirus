@@ -1,0 +1,52 @@
+<%
+    data.Countries.sort(function(a,b){
+        return (b.TotalConfirmed - a.TotalConfirmed);
+        });
+	countries = data.Countries;
+%>
+<div class="container my-2">
+	<h2>CoronaVirus Statistics</h2>
+		<table class="table table-bordered table-hover bg-light">
+			<thead>
+				<tr>
+					<th></th><th></th><th>New Cases</th><th>Total Cases</th><th>New Deaths</th><th>Total Deaths</th><th>New Recovered</th><th>Total Recovered</th>
+				</tr>
+				<tr>
+					<th></th>
+					<th>Global</th>
+					<th class="text-primary">+<%= data.Global.NewConfirmed %></th>
+					<th><%= data.Global.TotalConfirmed %></th>
+					<th class="text-danger">+<%= data.Global.NewDeaths %></th>
+					<th><%= data.Global.TotalDeaths %></th>
+					<th class="text-success">+<%= data.Global.NewRecovered %></th>
+					<th><%= data.Global.TotalRecovered %></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(let i=0;i<countries.length;i++) { %>
+					<tr>
+						<td><%= i+1 %></td>
+						<td><i class="<%= countries[i].CountryCode %> flag"></i><%= countries[i].Country %></td>
+						<% if(countries[i].NewRecovered!=0) { %>
+							<td class="bg-warning">+<%= countries[i].NewConfirmed %></td>
+						<% }else{%>
+							<td></td>
+						<%}%>
+						<td><%= countries[i].TotalConfirmed %></td>
+						<% if(countries[i].NewDeaths!=0) { %>
+							<td class="bg-danger">+<%= countries[i].NewDeaths %></td>
+						<% }else{%>
+							<td></td>
+						<%}%>
+						<td><%= countries[i].TotalDeaths %></td>
+						<% if(countries[i].NewRecovered!=0) { %>
+							<td class="bg-success">+<%= countries[i].NewRecovered %></td>
+						<% }else{%>
+							<td></td>
+						<%}%>
+						<td><%= countries[i].TotalRecovered %></td>
+					</tr>
+				<% } %>
+			</tbody>
+		</table>
+</div>
